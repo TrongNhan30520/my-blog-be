@@ -1,3 +1,4 @@
+import { Category } from 'src/category/Entities/category.entity';
 import { User } from 'src/user/Entities/user.entity';
 import {
   Entity,
@@ -32,4 +33,7 @@ export class Post {
 
   @ManyToOne(() => User, (user) => user.posts)
   user: User;
+
+  @ManyToOne(() => Category, (category) => category.posts)
+  category: Category;
 }

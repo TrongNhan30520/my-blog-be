@@ -17,12 +17,12 @@ export class UserService {
     const item_per_page = Number(query.item_per_page) || 10;
     const page = Number(query.page) || 1;
     const skip = (page - 1) * item_per_page;
-    const kewword = query.search || '';
+    const keyword = query.search || '';
     const [res, total] = await this.userRepository.findAndCount({
       where: [
-        { first_name: Like('%' + kewword + '%') },
-        { last_name: Like('%' + kewword + '%') },
-        { email: Like('%' + kewword + '%') },
+        { first_name: Like('%' + keyword + '%') },
+        { last_name: Like('%' + keyword + '%') },
+        { email: Like('%' + keyword + '%') },
       ],
       order: { created_at: 'DESC' }, // thời gian khỏi tạo giảm dần(tạo mới nhất sẽ đứng đầu)
       take: item_per_page, // số lượng cần lấy
