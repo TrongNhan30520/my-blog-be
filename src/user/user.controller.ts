@@ -38,6 +38,12 @@ export class UserController {
     return this.userService.findAll(query);
   }
 
+  @Get('profile')
+  @UseGuards(AuthGuard)
+  profile(@Req() req: any): Promise<User> {
+    return this.userService.findOne(Number(req.user_data.id));
+  }
+
   @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string): Promise<User> {
@@ -97,7 +103,7 @@ export class UserController {
     }
     return this.userService.updateAvatar(
       req.user_data.id,
-      file.destination + '/' + file.filename,
+      file.fieldname + '/' + file.filename,
     );
   }
 }
