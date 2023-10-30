@@ -65,7 +65,8 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Delete(':id')
   delete(@Param('id') id: string): any {
-    return this.userService.delete(Number(id));
+    const result = this.userService.delete(Number(id));
+    return { ...result, id };
   }
 
   @Post('upload-avatar')
