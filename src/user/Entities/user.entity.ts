@@ -18,7 +18,7 @@ export class User {
   @Column()
   last_name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -30,8 +30,14 @@ export class User {
   @Column({ nullable: true, default: null })
   refresh_token: string;
 
-  @Column({ default: 1 })
+  @Column({ default: 0 })
   status: number;
+
+  @Column({ nullable: true })
+  otp: number;
+
+  @Column({ nullable: true })
+  otp_expire_at: Date;
 
   @CreateDateColumn()
   created_at: Date;

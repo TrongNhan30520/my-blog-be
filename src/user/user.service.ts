@@ -1,5 +1,5 @@
 import { CreateUserDto } from './dto/create-user.dto';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Like, Repository, UpdateResult } from 'typeorm';
 import { User } from './Entities/user.entity';
@@ -57,6 +57,13 @@ export class UserService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userRepository.findOneBy({
+      email: createUserDto.email,
+    });
+
+    if (user) {
+      throw new HttpException('Email already exist', HttpStatus.BAD_REQUEST);
+    }
     const hashPassword = await bcrypt.hash(createUserDto.password, 10);
     return await this.userRepository.save({
       ...createUserDto,

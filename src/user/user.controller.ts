@@ -57,9 +57,9 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard)
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updatedUserDto: UpdateUserDto): any {
-    return this.userService.update(Number(id), updatedUserDto);
+  @Put('update-profile')
+  update(@Req() req: any, @Body() updatedUserDto: UpdateUserDto): any {
+    return this.userService.update(Number(req.user_data.id), updatedUserDto);
   }
 
   @UseGuards(AuthGuard)
