@@ -95,6 +95,13 @@ export class AuthService {
     if (!user) {
       throw new HttpException('Email is not exist', HttpStatus.UNAUTHORIZED);
     }
+    const checkVerifyEmail = user.status === 0 ? false : true;
+    if (!checkVerifyEmail) {
+      throw new HttpException(
+        'Email has not been verified',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const checkPass = bcrypt.compareSync(loginUserDto.password, user.password);
     if (!checkPass) {
       throw new HttpException('Email is not correct', HttpStatus.UNAUTHORIZED);

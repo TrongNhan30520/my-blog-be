@@ -6,7 +6,4 @@ export class UpdateUserDto {
 
   @ApiProperty()
   last_name: string;
-
-  @ApiProperty()
-  status: number;
 }
