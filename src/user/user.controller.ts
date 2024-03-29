@@ -53,6 +53,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    createUserDto.password = '12345';
     return this.userService.create(createUserDto);
   }
 
